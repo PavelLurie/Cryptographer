@@ -1,46 +1,22 @@
 package CaesarСipher.Option1;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Cryptographer {
-    public static void main(String[] args) throws IOException {
-        String path = "D:\\test12.txt\\";
-        String content = null;
-        try {
-            content = Files.readString(Paths.get(path));
+    public String encryptedString(String alphabet, String message, int key) {
+        char[] chars = message.toCharArray();
+        StringBuilder result = new StringBuilder();;
+        for (char aChar : chars) {
+            int index = alphabet.indexOf(aChar);
+            int newIndex = (index + key) % alphabet.length();
+            if (newIndex >= 0) {
+                char temp = alphabet.charAt(newIndex);
+                result.append(temp);
+            }else {
+                char temp = alphabet.charAt(newIndex + alphabet.length());
+                result.append(temp);
+            }
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert content != null;
-
-        Path path1 = Path.of("D:\\test1.txt\\");
-        Files.writeString(path1, encryptedString(content));
+        return result.toString();
     }
-
-    public static String encryptedString(String line) {
-        Scanner scanner = new Scanner(System.in);
-        int key = scanner.nextInt();
-        String encryptedLine = "";
-
-        if (key < 0) {
-            for (int i = 0; i < line.length(); i++) {
-                int temp = (line.charAt(i) + key);
-                int num = 1103 - (1103 - temp) % 64;
-                encryptedLine += (char) num;
-            }
-        } else {
-            for (int i = 0; i < line.length(); i++) {
-                int temp = (line.charAt(i) + key);
-                int num = (temp - 1103) % 64 + 1103;
-                encryptedLine += (char) num;
-            }
-
-        }return encryptedLine;
-
+    public String decrypt(String alphabet, String message, int key) {
+        return encryptedString(alphabet, message, key * (-1));
     }
 }
