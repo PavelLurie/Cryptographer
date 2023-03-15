@@ -12,7 +12,7 @@ public class TestBruteForce {
     private Scanner scanner = new Scanner(System.in);
 
 
-    public static void main(String[] args) throws IOException {
+    public void main() throws IOException {
         TestBruteForce testBruteForce = new TestBruteForce();
         testBruteForce.bruteforce();
     }
@@ -22,16 +22,16 @@ public class TestBruteForce {
         String line = scanner.nextLine();
         Path path = Paths.get(line);
 
-        String content = Files.readString(Paths.get(Objects.requireNonNull(path).toUri()));
-
+        String content = Files.readString(path); // Чем эта запись отличается от записи ниже
+        // String content = Files.readString(Paths.get(Objects.requireNonNull(path).toUri())); в классе Encoder в строке №23 и в классе Decoder в строке №21?
 
         System.out.println("Куда записать расшифрованный текст?");
-        String line1 = scanner.nextLine();
+        String pathToDecryptedFile = scanner.nextLine();
 
         // запросить у пользователя путь к зашифрованному тексту. Спросить куда записать расшифрованный текст
         // Открыть рерус для чтения. Счиать весь текст как единое сообщение.
 
-        BufferedWriter bw = Files.newBufferedWriter(Paths.get(line1));
+        BufferedWriter bw = Files.newBufferedWriter(Paths.get(pathToDecryptedFile));
         for (int i = 0; i < cryptographer.alphabetLength(); i++) {
             String decrypt = cryptographer.decrypt(cryptographer.getAlphabet(), content, i);
             if (isValidateText(decrypt)){

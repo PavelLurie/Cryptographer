@@ -23,7 +23,7 @@ public class Menu {
             switch (answer) {
                 case "1" -> encoder.main();
                 case "2" -> decoder.main();
-                case "3" -> testBruteForce.bruteforce();
+                case "3" -> testBruteForce.main();
                 case "4" -> System.out.println("Стат.анализ");
                 case "5" -> {
                     return;
