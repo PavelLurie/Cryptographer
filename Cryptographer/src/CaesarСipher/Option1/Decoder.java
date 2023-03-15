@@ -44,7 +44,7 @@ public class Decoder {
             enterKey();
         }
     }
-    public static Path enterPath() throws IOException {
+    public Path enterPath() throws IOException {
         System.out.print("Введите путь к файлу, который нужно расшифровать/Enter the path to the file to be decrypted: ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Path path1 = Paths.get(reader.readLine());

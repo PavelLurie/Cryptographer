@@ -1,8 +1,10 @@
 package CaesarСipher.Option1;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +22,7 @@ public class Encoder {
 
         String content = Files.readString(Paths.get(Objects.requireNonNull(enterPath()).toUri()));
 
-        Path path1 = Path.of("d:\\Encrypted file.txt\\");
+        Path path1 = Path.of(String.valueOf(encoder.enterNameFile()));
         Files.writeString(path1, cryptographer.encryptedString(cryptographer.getAlphabet(), content, key));
 
         System.out.println("Программа зашифровала файл/The program encrypted the file");
@@ -43,7 +45,7 @@ public class Encoder {
             enterKey();
         }
     }
-    public static Path enterPath() throws IOException {
+    public Path enterPath() throws IOException {
         System.out.print("Введите путь к файлу, который нужно зашифровать/Enter the path to the file to be encrypted: ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Path path1 = Paths.get(reader.readLine());
@@ -54,5 +56,21 @@ public class Encoder {
             System.out.println("Программа не нашла файл. Проверьте путь к файлу/The program did not find the file. Check the file path.");
             return enterPath();
         }
+    }
+
+   public File enterNameFile() throws IOException {
+       System.out.print("Введите куда сохранить зашифрованный файл и его название: ");
+       BufferedReader readerName = new BufferedReader(new InputStreamReader(System.in));
+       File file = new File("\\Cryptographer\\Зашифрованные файлы\\Encrypted file.txt");
+       try {
+           Path path2 = Paths.get(readerName.readLine());
+           return new File("\\Cryptographer\\Зашифрованные файлы\\" + path2);
+       }catch (Exception e){
+           System.out.println("Вы не ввели имя файла. Зашифрованный файл будет с именем Encrypted file.txt");
+           if (file.createNewFile()){
+               return file;
+           }
+           return file.getAbsoluteFile();
+       }
     }
 }

@@ -8,6 +8,7 @@ public class Menu {
     public static void main(String[] args) throws IOException {
         Encoder encoder = new Encoder();
         Decoder decoder = new Decoder();
+        TestBruteForce testBruteForce = new TestBruteForce();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
@@ -22,7 +23,7 @@ public class Menu {
             switch (answer) {
                 case "1" -> encoder.main();
                 case "2" -> decoder.main();
-                case "3" -> System.out.println("Подобрать ключ");
+                case "3" -> testBruteForce.bruteforce();
                 case "4" -> System.out.println("Стат.анализ");
                 case "5" -> {
                     return;
