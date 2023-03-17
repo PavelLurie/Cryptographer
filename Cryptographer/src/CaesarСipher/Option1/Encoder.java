@@ -22,10 +22,11 @@ public class Encoder {
 
         String content = Files.readString(Paths.get(Objects.requireNonNull(enterPath()).toUri()));
 
+
         Path path1 = Path.of(String.valueOf(encoder.enterNameFile()));
         Files.writeString(path1, cryptographer.encryptedString(cryptographer.getAlphabet(), content, key));
 
-        System.out.println("Программа зашифровала файл/The program encrypted the file");
+        System.out.println("Программа зашифровала 2014 файл/The program encrypted the file");
 
     }
     public void enterKey() {
