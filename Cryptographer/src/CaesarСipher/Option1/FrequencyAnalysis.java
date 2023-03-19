@@ -1,18 +1,21 @@
 package CaesarСipher.Option1;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Draft {
+public class FrequencyAnalysis {
     public static void main(String[] args) throws IOException {
-        Path path = Path.of("D:\\tets.txt\\");
-        String content = Files.readString(path);
+        System.out.print("Введите путь к файлу, который нужно расшифровать/Enter the path to the file to be decrypted: ");
+        String content = tree();
 
-        Path path1 = Path.of("D:\\test12.txt\\");
-        String content1 = Files.readString(path1);
+        System.out.print("Введите путь к файлу, который нужно анализировать/Enter the path to the file to be parsed: ");
+        String content1 = tree();
 
         char begin = two(content);
         char end = two(content1);
@@ -31,7 +34,8 @@ public class Draft {
         }
         int key = temp - temp1;
 
-        System.out.println(key);
+        System.out.println(cryptographer.decrypt(cryptographer.getAlphabet(), content, key));
+        System.out.println("Ключ шифрования: " + key);
 
         }
         public static Map<Character, Integer> one(String content) {
@@ -61,6 +65,12 @@ public class Draft {
                 maxKey = key;
             }
         }return maxKey;
+    }
+
+    public static String tree() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Path path = Paths.get(reader.readLine());
+        return Files.readString(path);
     }
 }
 
