@@ -22,14 +22,10 @@ public class TestBruteForce {
         String line = scanner.nextLine();
         Path path = Paths.get(line);
 
-        String content = Files.readString(path); // Чем эта запись отличается от записи ниже
-        // String content = Files.readString(Paths.get(Objects.requireNonNull(path).toUri())); в классе Encoder в строке №23 и в классе Decoder в строке №21?
+        String content = Files.readString(path);
 
         System.out.println("Куда записать расшифрованный текст?");
         String pathToDecryptedFile = scanner.nextLine();
-
-        // запросить у пользователя путь к зашифрованному тексту. Спросить куда записать расшифрованный текст
-        // Открыть рерус для чтения. Счиать весь текст как единое сообщение.
 
         BufferedWriter bw = Files.newBufferedWriter(Paths.get(pathToDecryptedFile));
         for (int i = 0; i < cryptographer.alphabetLength(); i++) {
@@ -39,7 +35,6 @@ public class TestBruteForce {
                 bw.close();
                 System.out.println("Содержимое расшифровано. Ключ равен " + i);
                 break;
-                // понять почему пропадает символ переноса строки.
             }
         }
     }

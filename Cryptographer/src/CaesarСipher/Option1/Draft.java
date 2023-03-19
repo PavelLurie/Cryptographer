@@ -11,42 +11,30 @@ public class Draft {
         Path path = Path.of("D:\\tets.txt\\");
         String content = Files.readString(path);
 
-        System.out.println(content);
-
-        Path path1 = Path.of("D:\\test.txt\\");
+        Path path1 = Path.of("D:\\test12.txt\\");
         String content1 = Files.readString(path1);
 
-        Map<Character, Integer> newMap = one(content);
-        Map<Character, Integer> newMap1 = one(content1);
+        char begin = two(content);
+        char end = two(content1);
 
-        System.out.println(newMap.entrySet());
-        System.out.println(newMap1.entrySet());
-        System.out.println();
-        //String line = null;
+        Cryptographer cryptographer = new Cryptographer();
+        String alphabet = cryptographer.getAlphabet();
 
-        while (!newMap.isEmpty()) {
-            Character maxKey = null;
-            for (Character key : newMap.keySet()) {
-                if (maxKey == null || newMap.get(key) > newMap.get(maxKey)) {
-                    maxKey = key;
-                }
+        int temp = 0;
+        int temp1 = 0;
+        for (int i = 0; i < alphabet.length(); i++) {
+            if (alphabet.charAt(i) == begin){
+                temp = i;
+            }else if (alphabet.charAt(i) == end){
+                temp1 = i;
             }
-            Character maxKey1 = null;
-            for (Character key : newMap1.keySet()) {
-                if (maxKey1 == null || newMap1.get(key) > newMap1.get(maxKey1)) {
-                    maxKey1 = key;
-
-                }
-            }
-            content = content.replace(maxKey, maxKey1);
-            //System.out.println(content);
-            newMap1.remove(maxKey1);
-            newMap.remove(maxKey);
         }
-        System.out.println(content);
-    }
+        int key = temp - temp1;
 
-    public static Map<Character, Integer> one(String content) {
+        System.out.println(key);
+
+        }
+        public static Map<Character, Integer> one(String content) {
         Cryptographer cryptographer = new Cryptographer();
         Map<Character, Integer> chars = new HashMap<>();
         String alphabet = cryptographer.getAlphabet();
@@ -63,16 +51,16 @@ public class Draft {
                 }
             }
         }
-
-//        for (char aChar : content.toCharArray()) {
-//            if (!chars.containsKey(aChar)) {
-//                chars.put(aChar, 1);
-//            } else {
-//                chars.put(aChar, chars.get(aChar) + 1);
-//            }
-
-            //chars.merge(aChar, 1, Integer::sum);
         return chars;
+    }
+        public static char two(String content){
+        Map<Character, Integer> newMap = one(content);
+        Character maxKey = null;
+        for (Character key : newMap.keySet()) {
+            if (maxKey == null || newMap.get(key) > newMap.get(maxKey)) {
+                maxKey = key;
+            }
+        }return maxKey;
     }
 }
 
@@ -80,3 +68,11 @@ public class Draft {
 
 //Сформировать образ бренда.
 //вваСтССазо.е абСон бСмфиод
+//        for (char aChar : content.toCharArray()) {
+//            if (!chars.containsKey(aChar)) {
+//                chars.put(aChar, 1);
+//            } else {
+//                chars.put(aChar, chars.get(aChar) + 1);
+//            }
+
+//chars.merge(aChar, 1, Integer::sum);
