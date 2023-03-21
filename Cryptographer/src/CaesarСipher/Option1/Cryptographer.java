@@ -5,6 +5,8 @@ public class Cryptographer {
             "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
             ".,\":!? +-*/\\@#$%^&(){}[];'|`~=_©«»—" + "0123456789";
 
+
+
     public int alphabetLength() {
         return ALPHABET.length();
     }

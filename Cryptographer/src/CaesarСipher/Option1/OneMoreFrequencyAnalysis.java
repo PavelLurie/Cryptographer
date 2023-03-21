@@ -16,6 +16,8 @@ public class OneMoreFrequencyAnalysis {
         Path path = Paths.get("D:\\test.txt");
         String content = Files.readString(path);
 
+
+
 //        System.out.print("Введите путь к файлу, который нужно анализировать/Enter the path to the file to be parsed: ");
 //        BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
         Path path1 = Paths.get("D:\\test1.txt");
@@ -67,6 +69,19 @@ public class OneMoreFrequencyAnalysis {
             }
         }
         return chars;
+    }
+
+    public static Map<Character, Integer> tree(String path) throws IOException {
+        Map<Character, Integer> map = new HashMap<>();
+        String content = Files.readString(Path.of(path));
+
+        for (char aChar : content.toCharArray()){
+            if (!map.containsKey(aChar)) {
+                map.put(aChar, 1);
+            } else {
+                map.put(aChar, map.get(aChar) + 1);
+            }
+        }return map;
     }
 
 //    public static char two(String content){
