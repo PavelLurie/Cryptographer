@@ -20,6 +20,9 @@ public class FrequencyAnalysis {
         char begin = two(content);
         char end = two(content1);
 
+        System.out.println(one(content1));
+        System.out.println(one(content1).size());
+
         Cryptographer cryptographer = new Cryptographer();
         String alphabet = cryptographer.getAlphabet();
 

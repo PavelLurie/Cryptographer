@@ -11,88 +11,56 @@ import java.util.Map;
 
 public class OneMoreFrequencyAnalysis {
     public static void main(String[] args) throws IOException {
-//        System.out.print("Введите путь к файлу, который нужно расшифровать/Enter the path to the file to be decrypted: ");
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Path path = Paths.get("D:\\test.txt");
+        Path path = Path.of("D:\\test.txt");
         String content = Files.readString(path);
 
-
-
-//        System.out.print("Введите путь к файлу, который нужно анализировать/Enter the path to the file to be parsed: ");
-//        BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
-        Path path1 = Paths.get("D:\\test1.txt");
+        Path path1 = Path.of("D:\\test1.txt");
         String content1 = Files.readString(path1);
-        //String line = null;
-        Map<Character, Integer> newMap = one(content);
-        Map<Character, Integer> newMap1 = one(content1);
 
-        System.out.println(newMap);
-        System.out.println(newMap1);
+        Map<Character, Integer> newMap = tree(content);
+        Map<Character, Integer> newMap1 = tree(content1);
+        char temp = '^';
+        String line = null;
 
-
-        while (!newMap.isEmpty()){
+        while (!newMap.isEmpty()) {
             Character maxKey = null;
             for (Character key : newMap.keySet()) {
                 if (maxKey == null || newMap.get(key) > newMap.get(maxKey)) {
                     maxKey = key;
+                }
             }
-        }
 
             Character maxKey1 = null;
             for (Character key1 : newMap1.keySet()) {
                 if (maxKey1 == null || newMap1.get(key1) > newMap1.get(maxKey1)) {
                     maxKey1 = key1;
-            }
-        }
-            //System.out.println(maxKey1);
-            content = content.replace(maxKey, maxKey1);
-            newMap1.remove(maxKey1);
-            newMap.remove(maxKey);
-        }
-        System.out.println(content);
-    }
-    public static Map<Character, Integer> one(String content) {
-        Cryptographer cryptographer = new Cryptographer();
-        Map<Character, Integer> chars = new HashMap<>();
-        String alphabet = cryptographer.getAlphabet();
-        char [] alphabetChar = alphabet.toCharArray();
-
-        char[] array = content.toCharArray();
-
-        for (int i = 0; i < alphabetChar.length; i++) {
-            int index = 0;
-            for (int j = 0; j < array.length; j++) {
-                if (alphabetChar[i] == array[j]){
-                    index++;
-                    chars.put(alphabetChar[i], index);
                 }
             }
+
+            line = content.replace(maxKey, temp);
+            newMap.remove(maxKey);
+
+            content = line.replace(temp, maxKey1);
+            newMap1.remove(maxKey1);
+
         }
-        return chars;
+
+        //System.out.println(content);
+        System.out.println();
+
     }
 
-    public static Map<Character, Integer> tree(String path) throws IOException {
+    public static Map<Character, Integer> tree(String content) {
         Map<Character, Integer> map = new HashMap<>();
-        String content = Files.readString(Path.of(path));
-
-        for (char aChar : content.toCharArray()){
+        for (char aChar : content.toCharArray()) {
             if (!map.containsKey(aChar)) {
                 map.put(aChar, 1);
             } else {
                 map.put(aChar, map.get(aChar) + 1);
             }
-        }return map;
+        }
+        map.remove('\n');
+        return map;
     }
 
-//    public static char two(String content){
-//        Map<Character, Integer> newMap = one(content);
-//        Character maxKey = null;
-//        for (Character key : newMap.keySet()) {
-//            if (maxKey == null || newMap.get(key) > newMap.get(maxKey)) {
-//                maxKey = key;
-//            }
-//        }return maxKey;
-//    }
 }
-
-//Цчпилщ#упч\
