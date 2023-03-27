@@ -14,13 +14,20 @@ public class OneMoreFrequencyAnalysis {
         Path path = Path.of("D:\\test.txt");
         String content = Files.readString(path);
 
+
+
         Path path1 = Path.of("D:\\test1.txt");
         String content1 = Files.readString(path1);
 
         Map<Character, Integer> newMap = tree(content);
         Map<Character, Integer> newMap1 = tree(content1);
-        char temp = '^';
-        String line = null;
+
+
+
+        newMap.entrySet().stream()
+                .sorted(Map.Entry.<Character, Integer>comparingByValue().reversed())
+                .forEach(System.out::println);
+
 
         while (!newMap.isEmpty()) {
             Character maxKey = null;
@@ -31,23 +38,18 @@ public class OneMoreFrequencyAnalysis {
             }
 
             Character maxKey1 = null;
+
             for (Character key1 : newMap1.keySet()) {
                 if (maxKey1 == null || newMap1.get(key1) > newMap1.get(maxKey1)) {
                     maxKey1 = key1;
+
                 }
             }
-
-            line = content.replace(maxKey, temp);
-            newMap.remove(maxKey);
-
-            content = line.replace(temp, maxKey1);
+            content = content.replace(maxKey, maxKey1);
             newMap1.remove(maxKey1);
-
+            newMap.remove(maxKey);
         }
-
-        //System.out.println(content);
-        System.out.println();
-
+        System.out.println(content);
     }
 
     public static Map<Character, Integer> tree(String content) {
@@ -60,6 +62,7 @@ public class OneMoreFrequencyAnalysis {
             }
         }
         map.remove('\n');
+        map.remove('\r');
         return map;
     }
 
